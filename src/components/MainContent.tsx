@@ -1,7 +1,7 @@
 type Props = {};
 
 function MainContent({}: Props) {
-  return <div>MainContent</div>;
+  return <div>MainContent Component</div>;
 }
 
 export default MainContent;

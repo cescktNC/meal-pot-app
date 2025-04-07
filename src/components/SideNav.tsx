@@ -1,7 +1,7 @@
 type Props = {};
 
 function SideNav({}: Props) {
-  return <div>SideNav</div>;
+  return <div>SideNav Component</div>;
 }
 
 export default SideNav;
