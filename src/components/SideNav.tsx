@@ -6,6 +6,7 @@ import {
   Flex,
   Heading,
   Image,
+  SkeletonText,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -64,7 +65,16 @@ function SideNav({
   selectedCategory,
   setSelectedCategory,
 }: Props) {
-  return (
+  console.log(loading);
+  return loading ? (
+    <SkeletonText
+      noOfLines={8}
+      gap="4"
+      variant="shine"
+      width="full"
+      height="5"
+    />
+  ) : (
     <>
       <Heading fontWeight="bold" fontSize={18} color="gray.800" mb={4}>
         Categories

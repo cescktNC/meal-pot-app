@@ -7,15 +7,23 @@ export default function useHttpData<T>(url: string) {
 
   // Fetching all categories from the API
   useEffect(() => {
+    let ignore = false; // Flag to ignore the effect if the component unmounts
     const controller = new AbortController(); // Create a new AbortController instance
     const signal = controller.signal; // Get the signal from the controller
     setLoading(true);
     axios
       .get<{ meals: T[] }>(url, { signal }) // Pass the signal to the request
-      .then(({ data }) => setData(data.meals))
-      .finally(() => setLoading(false));
+      .then(({ data }) => {
+        if (!ignore) setData(data.meals);
+      })
+      .finally(() => {
+        if (!ignore) setLoading(false); // Set loading to false only if the component is still mounted
+      });
 
-    return () => controller.abort(); // Cleanup function to abort the request
+    return () => {
+      ignore = true; // Set the flag to true when the component unmounts
+      controller.abort();
+    }; // Cleanup function to abort the request
   }, []);
 
   return { loading, data };

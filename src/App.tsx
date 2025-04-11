@@ -4,7 +4,7 @@ import SideNav from "./components/SideNav";
 import MainContent from "./components/MainContent";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { CategoriesResponse, Category, Meal, MealCount } from "./types";
+import { CategoriesResponse, Category, MealCount } from "./types";
 import useHttpData from "./hooks/useHttpData";
 
 const makeMealUrl = (category: Category) => {
@@ -16,13 +16,13 @@ const makeMealUrl = (category: Category) => {
 function App() {
   const apiUrlAllCategories = import.meta.env.VITE_API_URL_ALL_CATEGORIES;
 
+  const [mealsCount, setMealsCount] = useState<MealCount>({});
   const [selectedCategory, setSelectedCategory] = useState<Category>({
     strCategory: "Beef",
   });
 
   const { loading, data: categories } =
     useHttpData<Category>(apiUrlAllCategories);
-  const [mealsCount, setMealsCount] = useState<MealCount>({});
 
   // Fetching meals based on selected category
   useEffect(() => {
