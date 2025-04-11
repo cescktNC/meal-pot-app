@@ -5,61 +5,57 @@ import MainContent from "./components/MainContent";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { CategoriesResponse, Category, Meal, MealCount } from "./types";
+import useHttpData from "./hooks/useHttpData";
+
+const makeMealUrl = (category: Category) => {
+  return `${import.meta.env.VITE_API_URL_MEALS_FILTERED_BY_CATEGORY}?c=${
+    category.strCategory
+  }`;
+};
 
 function App() {
   const apiUrlAllCategories = import.meta.env.VITE_API_URL_ALL_CATEGORIES;
-  const [data, setData] = useState<Category[]>([]);
-  const [mealsCount, setMealsCount] = useState<MealCount>({});
-  const [loading, setLoading] = useState(false);
+
   const [selectedCategory, setSelectedCategory] = useState<Category>({
     strCategory: "Beef",
   });
 
-  // Fetching all categories from the API
-  useEffect(() => {
-    const controller = new AbortController(); // Create a new AbortController instance
-    const signal = controller.signal; // Get the signal from the controller
-    setLoading(true);
-    axios
-      .get<CategoriesResponse>(apiUrlAllCategories, { signal }) // Pass the signal to the request
-      .then(({ data }) => setData(data.meals))
-      .finally(() => setLoading(false));
-
-    return () => controller.abort(); // Cleanup function to abort the request
-  }, []);
+  const { loading, data: categories } =
+    useHttpData<Category>(apiUrlAllCategories);
+  const [mealsCount, setMealsCount] = useState<MealCount>({});
 
   // Fetching meals based on selected category
   useEffect(() => {
-    if (!data.length) return; // Check if data is empty
+    if (!categories.length) return; // Check if data is empty
 
     const controller = new AbortController();
     const signal = controller.signal;
-    setLoading(true);
 
     const fetchMealsCount = async () => {
-      const url = import.meta.env.VITE_API_URL_FILTERED_BY_CATEGORY;
+      const mealsCount: MealCount = {};
       try {
-        let counts: MealCount = {};
         await Promise.all(
-          data.map(async (category) => {
+          categories.map(async (category) => {
+            const url = makeMealUrl(category);
             const { data } = await axios.get<CategoriesResponse>(url, {
-              params: { c: category.strCategory },
               signal,
             });
-            counts[category.strCategory] = data.meals.length;
+            mealsCount[category.strCategory] = data.meals.length;
           })
         );
-        setMealsCount(counts);
+        setMealsCount(mealsCount);
       } catch (error) {
-        console.error("Error al obtener el número de meals:", error);
+        if (axios.isCancel(error)) {
+          console.log("Request canceled", error.message);
+        } else {
+          console.error("Error fetching meals count:", error);
+        }
       }
     };
 
     fetchMealsCount();
-    setLoading(false);
-
     return () => controller.abort(); // Cleanup function to abort the request
-  }, [data]);
+  }, [categories]);
 
   return (
     <Grid templateColumns="repeat(6, 1fr)">
@@ -68,7 +64,7 @@ function App() {
       </GridItem>
       <GridItem h="calc(100vh - 80px)" p={5} overflowY="auto">
         <SideNav
-          categories={data}
+          categories={categories}
           mealsCount={mealsCount}
           loading={loading}
           selectedCategory={selectedCategory}

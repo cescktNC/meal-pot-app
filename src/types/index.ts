@@ -4,7 +4,7 @@ export type Category = {
 
 // This is the type for the meal object returned from the API
 export type CategoriesResponse = {
-  meals: Category[];
+  meals: Meal[];
 };
 
 export type Meal = {
