@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { CategoriesResponse, Category, Meal, MealCount } from "./types";
 import useHttpData from "./hooks/useHttpData";
+import LetterButton from "./components/LetterButton";
 
 const makeMealUrl = (category: Category) => {
   return `${import.meta.env.VITE_API_URL_MEALS_FILTERED_BY_CATEGORY}?c=${
@@ -20,6 +21,7 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState<Category>({
     strCategory: "Beef",
   });
+  const [selectedLetter, setSelectedLetter] = useState<string>("");
 
   const { loading, data: categories } =
     useHttpData<Category>(apiUrlAllCategories);
@@ -92,6 +94,10 @@ function App() {
         />
       </GridItem>
       <GridItem colSpan={5} p={5} bgColor="gray.100">
+        <LetterButton
+          selectedLetter={selectedLetter}
+          setSelectedLetter={setSelectedLetter}
+        />
         <MainContent meals={dataMeal} loading={loadingMeal} />
       </GridItem>
     </Grid>
