@@ -4,7 +4,7 @@ import SideNav from "./components/SideNav";
 import MainContent from "./components/MainContent";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { CategoriesResponse, Category, MealCount } from "./types";
+import { CategoriesResponse, Category, Meal, MealCount } from "./types";
 import useHttpData from "./hooks/useHttpData";
 
 const makeMealUrl = (category: Category) => {
@@ -23,6 +23,9 @@ function App() {
 
   const { loading, data: categories } =
     useHttpData<Category>(apiUrlAllCategories);
+  const { loading: loadingMeal, data: dataMeal } = useHttpData<Meal>(
+    makeMealUrl(selectedCategory)
+  );
 
   // Fetching meals based on selected category
   useEffect(() => {
@@ -59,10 +62,27 @@ function App() {
 
   return (
     <Grid templateColumns="repeat(6, 1fr)">
-      <GridItem h="80px" colSpan={6} bg={"blue.500"}>
+      <GridItem
+        pos="sticky"
+        top="0"
+        left="0"
+        zIndex={1}
+        h="80px"
+        colSpan={6}
+        bg={"white"}
+        boxShadow="lg"
+        p={5}
+      >
         <Header />
       </GridItem>
-      <GridItem h="calc(100vh - 80px)" p={5} overflowY="auto">
+      <GridItem
+        pos="sticky"
+        top="80px"
+        left="0"
+        h="calc(100vh - 80px)"
+        p={5}
+        overflowY="auto"
+      >
         <SideNav
           categories={categories}
           mealsCount={mealsCount}
@@ -71,8 +91,8 @@ function App() {
           setSelectedCategory={setSelectedCategory}
         />
       </GridItem>
-      <GridItem colSpan={5} bg={"green.500"}>
-        <MainContent />
+      <GridItem colSpan={5} p={5} bgColor="gray.100">
+        <MainContent meals={dataMeal} loading={loadingMeal} />
       </GridItem>
     </Grid>
   );

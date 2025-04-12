@@ -47,7 +47,8 @@ const categoriesIcons: Record<string, string> = {
 };
 
 const selectedProps = {
-  outline: "2px solid orange",
+  outline: "2px solid",
+  outlineColor: "orange.600",
 };
 
 type Props = {
@@ -65,7 +66,6 @@ function SideNav({
   selectedCategory,
   setSelectedCategory,
 }: Props) {
-  console.log(loading);
   return loading ? (
     <SkeletonText
       noOfLines={8}
