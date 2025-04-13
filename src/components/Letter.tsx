@@ -2,6 +2,7 @@ import { Button } from "@chakra-ui/react";
 
 type Props = {
   letter: string;
+  isDisabled: boolean;
   selected: boolean;
   onSelect: (letter: string) => void;
 };
@@ -11,7 +12,7 @@ const selectedProps = {
   color: "white",
 };
 
-function Letter({ letter, selected, onSelect }: Props) {
+function Letter({ letter, isDisabled, selected, onSelect }: Props) {
   return (
     <Button
       onClick={() => onSelect(letter)}
@@ -24,6 +25,7 @@ function Letter({ letter, selected, onSelect }: Props) {
       px={0}
       size="sm"
       rounded="sm"
+      disabled={isDisabled}
       _hover={{ bg: "orange.600", color: "white" }}
       {...(selected && selectedProps)}
     >

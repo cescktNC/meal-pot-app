@@ -95,6 +95,7 @@ function App() {
       </GridItem>
       <GridItem colSpan={5} p={5} bgColor="gray.100">
         <LetterButton
+          loading={loadingMeal}
           selectedLetter={selectedLetter}
           setSelectedLetter={setSelectedLetter}
         />
