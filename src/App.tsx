@@ -25,9 +25,11 @@ function App() {
 
   const { loading, data: categories } =
     useHttpData<Category>(apiUrlAllCategories);
-  const { loading: loadingMeal, data: dataMeal } = useHttpData<Meal>(
-    makeMealUrl(selectedCategory)
-  );
+  const {
+    loading: loadingMeal,
+    data: dataMeal,
+    fetchMealsByName,
+  } = useHttpData<Meal>(makeMealUrl(selectedCategory));
 
   // Fetching meals based on selected category
   useEffect(() => {
@@ -75,7 +77,7 @@ function App() {
         boxShadow="lg"
         p={5}
       >
-        <Header />
+        <Header onSubmit={(mealName) => fetchMealsByName(mealName)} />
       </GridItem>
       <GridItem
         pos="sticky"

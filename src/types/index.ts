@@ -16,3 +16,7 @@ export type Meal = {
 export type MealCount = {
   [key: string]: number;
 };
+
+export type searchForm = {
+  search: string;
+};

@@ -1,3 +1,4 @@
+import { searchForm } from "@/types";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -26,5 +27,31 @@ export default function useHttpData<T>(url: string) {
     }; // Cleanup function to abort the request
   }, []);
 
-  return { loading, data };
+  // Fetching meals by name from the API
+  // This function is called when the user submits the search form
+  const fetchMealsByName = async (mealName: searchForm) => {
+    const url = `${import.meta.env.VITE_API_URL_MEAL_BY_NAME}${
+      mealName.search
+    }`;
+    const controller = new AbortController();
+    const signal = controller.signal;
+    setLoading(true);
+
+    axios
+      .get<{ meals: T[] }>(url, { signal })
+      .then(({ data }) => {
+        if (!data.meals) {
+          setData([]);
+          return;
+        }
+        setData(data.meals);
+      })
+      .finally(() => setLoading(false));
+
+    return () => {
+      controller.abort(); // Cleanup function to abort the request
+    };
+  };
+
+  return { loading, data, fetchMealsByName };
 }
