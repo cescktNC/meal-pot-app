@@ -48,7 +48,7 @@ const categoriesIcons: Record<string, string> = {
 
 const selectedProps = {
   outline: "2px solid",
-  outlineColor: "orange.600",
+  outlineColor: "orange.solid",
 };
 
 type Props = {

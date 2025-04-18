@@ -11,7 +11,7 @@ function MealCard({ meal }: Props) {
         <Card.Title>{meal.strMeal}</Card.Title>
       </Card.Body>
       <Card.Footer mt={5}>
-        <Button variant="solid" bgColor="orange.600">
+        <Button variant="solid" bgColor="orange.solid">
           Show recipe
         </Button>
       </Card.Footer>

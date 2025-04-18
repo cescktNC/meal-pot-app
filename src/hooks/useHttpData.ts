@@ -53,5 +53,27 @@ export default function useHttpData<T>(url: string) {
     };
   };
 
-  return { loading, data, fetchMealsByName };
+  const fetchMealsByArea = async (area: string) => {
+    const url = `${import.meta.env.VITE_API_URL_MEAL_BY_AREA}${area}`;
+    const controller = new AbortController();
+    const signal = controller.signal;
+    setLoading(true);
+
+    axios
+      .get<{ meals: T[] }>(url, { signal })
+      .then(({ data }) => {
+        if (!data.meals) {
+          setData([]);
+          return;
+        }
+        setData(data.meals);
+      })
+      .finally(() => setLoading(false));
+
+    return () => {
+      controller.abort(); // Cleanup function to abort the request
+    };
+  };
+
+  return { loading, data, setData, fetchMealsByName, fetchMealsByArea };
 }

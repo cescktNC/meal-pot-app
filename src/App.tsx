@@ -25,10 +25,13 @@ function App() {
 
   const { loading, data: categories } =
     useHttpData<Category>(apiUrlAllCategories);
+
   const {
     loading: loadingMeal,
     data: dataMeal,
+    setData: setDataMeal,
     fetchMealsByName,
+    fetchMealsByArea,
   } = useHttpData<Meal>(makeMealUrl(selectedCategory));
 
   // Fetching meals based on selected category
@@ -77,7 +80,18 @@ function App() {
         boxShadow="lg"
         p={5}
       >
-        <Header onSubmit={(mealName) => fetchMealsByName(mealName)} />
+        <Header
+          onSubmit={(mealName) => {
+            mealName.search === ""
+              ? setDataMeal([])
+              : fetchMealsByName(mealName);
+          }}
+          onChange={(area) =>
+            area === "Select the country"
+              ? setDataMeal([])
+              : fetchMealsByArea(area)
+          }
+        />
       </GridItem>
       <GridItem
         pos="sticky"

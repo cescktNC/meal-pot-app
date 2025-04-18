@@ -6,6 +6,7 @@ import {
 } from "@chakra-ui/react";
 
 const areaToFlagCode: Record<string, string> = {
+  "Select the country": "xx",
   American: "us",
   British: "gb",
   Canadian: "ca",
@@ -67,21 +68,22 @@ const SelectValue = () => {
   return (
     <Select.ValueText>
       <HStack>
-        <FlagIcon code={id} />
+        {id !== "xx" && <FlagIcon code={id} />}
         {name}
       </HStack>
     </Select.ValueText>
   );
 };
 
-type Props = {};
+type Props = { onChange: (area: string) => void };
 
-function SelectCountry({}: Props) {
+function SelectCountry({ onChange }: Props) {
   return (
     <Select.Root
       collection={countries}
-      defaultValue={["es"]}
+      defaultValue={["xx"]}
       positioning={{ sameWidth: true }}
+      onValueChange={(value) => onChange(value.items[0].name)}
     >
       <Select.HiddenSelect />
       <Select.Control>
@@ -96,7 +98,7 @@ function SelectCountry({}: Props) {
         <Select.Content>
           {countries.items.map((item) => (
             <Select.Item item={item} key={item.id} justifyContent="flex-start">
-              <FlagIcon code={item.id} />
+              {item.id !== "xx" && <FlagIcon code={item.id} />}
               {item.name}
               <Select.ItemIndicator />
             </Select.Item>

@@ -8,7 +8,7 @@ type Props = {
 };
 
 const selectedProps = {
-  bg: "orange.600",
+  bg: "orange.solid",
   color: "white",
 };
 
@@ -17,16 +17,16 @@ function Letter({ letter, isDisabled, selected, onSelect }: Props) {
     <Button
       onClick={() => onSelect(letter)}
       border="2px solid"
-      borderColor="orange.600"
-      bg="orange.200"
-      color="orange.600"
+      borderColor="orange.solid"
+      bg="orange.muted"
+      color="orange.solid"
       fontWeight="bold"
       fontSize="16px"
       px={0}
       size="sm"
       rounded="sm"
       disabled={isDisabled}
-      _hover={{ bg: "orange.600", color: "white" }}
+      _hover={{ bg: "orange.solid", color: "white" }}
       {...(selected && selectedProps)}
     >
       {letter}
