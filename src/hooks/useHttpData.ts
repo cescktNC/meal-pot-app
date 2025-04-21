@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export default function useHttpData<T>(url: string) {
   const [data, setData] = useState<T[]>([]);
   const [loading, setLoading] = useState(false);
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
   // Fetching all categories from the API
   useEffect(() => {
@@ -30,7 +31,7 @@ export default function useHttpData<T>(url: string) {
   // Fetching meals by name from the API
   // This function is called when the user submits the search form
   const fetchMealsByName = async (mealName: searchForm) => {
-    const url = `${import.meta.env.VITE_API_URL_MEAL_BY_NAME}${
+    const url = `${baseUrl}${import.meta.env.VITE_API_URL_MEAL_BY_NAME}${
       mealName.search
     }`;
     const controller = new AbortController();
@@ -54,7 +55,7 @@ export default function useHttpData<T>(url: string) {
   };
 
   const fetchMealsByArea = async (area: string) => {
-    const url = `${import.meta.env.VITE_API_URL_MEAL_BY_AREA}${area}`;
+    const url = `${baseUrl}${import.meta.env.VITE_API_URL_MEAL_BY_AREA}${area}`;
     const controller = new AbortController();
     const signal = controller.signal;
     setLoading(true);
