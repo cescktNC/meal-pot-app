@@ -120,6 +120,7 @@ function App() {
           p={5}
         >
           <Header
+            setSelectedCategory={setSelectedCategory}
             onSubmit={(mealName) => {
               mealName.search === ""
                 ? setDataMeal([])

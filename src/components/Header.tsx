@@ -11,20 +11,26 @@ import { RiSearchLine } from "react-icons/ri";
 import logo from "@/assets/images/logo.svg";
 import SelectCountry from "./SelectCountry";
 import { useForm } from "react-hook-form";
-import { searchForm } from "@/types";
+import { Category, searchForm } from "@/types";
 
 type Props = {
+  setSelectedCategory: (category: Category) => void;
   onSubmit: (data: searchForm) => void;
   onChange: (area: string) => void;
 };
 
-function Header({ onSubmit, onChange }: Props) {
+function Header({ setSelectedCategory, onSubmit, onChange }: Props) {
   const { register, handleSubmit } = useForm<searchForm>();
 
   return (
     <Grid templateColumns="repeat(6, 1fr)">
       <GridItem>
-        <Image src={logo} alt="logo image" />
+        <Image
+          src={logo}
+          alt="logo image"
+          _hover={{ cursor: "pointer" }}
+          onClick={() => setSelectedCategory({ strCategory: "Beef" })}
+        />
       </GridItem>
       <GridItem colSpan={4}>
         <Center>

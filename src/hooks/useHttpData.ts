@@ -26,7 +26,7 @@ export default function useHttpData<T>(url: string) {
       ignore = true; // Set the flag to true when the component unmounts
       controller.abort();
     }; // Cleanup function to abort the request
-  }, []);
+  }, [url]);
 
   // Fetching meals by name from the API
   // This function is called when the user submits the search form
