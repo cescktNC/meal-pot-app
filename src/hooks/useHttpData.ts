@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function useHttpData<T>(url: string) {
-  const [data, setData] = useState<T[]>([]);
+  const [data, setData] = useState<T[] | undefined>(undefined);
   const [loading, setLoading] = useState(false);
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 

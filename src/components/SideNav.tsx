@@ -52,7 +52,7 @@ const selectedProps = {
 };
 
 type Props = {
-  categories: Category[];
+  categories: Category[] | undefined;
   mealsCount: MealCount;
   loading: boolean;
   selectedCategory: Category;
@@ -81,35 +81,36 @@ function SideNav({
       </Heading>
       <ButtonGroup variant="ghost" w="100%">
         <Stack w="100%">
-          {categories.map((category) => (
-            <Button
-              onClick={() => setSelectedCategory(category)}
-              key={category.strCategory}
-              justifyContent="flex-start"
-              boxShadow="sm"
-              rounded="sm"
-              h="60px"
-              _hover={{ bg: "gray.100" }}
-              {...(selectedCategory.strCategory === category.strCategory &&
-                selectedProps)}
-            >
-              <Image
-                src={categoriesIcons[category.strCategory]}
-                h="80%"
-                maxH="60px"
-                fit="cover"
-                alt="category image"
-              />
-              <Flex direction="column" flex={1} align="flex-start" ml={3}>
-                <Text fontSize={16} fontWeight="bold">
-                  {category.strCategory}
-                </Text>
-                <Box fontSize={12} color="gray.400">
-                  {mealsCount[category.strCategory] ?? 0} Meals
-                </Box>
-              </Flex>
-            </Button>
-          ))}
+          {categories &&
+            categories.map((category) => (
+              <Button
+                onClick={() => setSelectedCategory(category)}
+                key={category.strCategory}
+                justifyContent="flex-start"
+                boxShadow="sm"
+                rounded="sm"
+                h="60px"
+                _hover={{ bg: "gray.100" }}
+                {...(selectedCategory.strCategory === category.strCategory &&
+                  selectedProps)}
+              >
+                <Image
+                  src={categoriesIcons[category.strCategory]}
+                  h="80%"
+                  maxH="60px"
+                  fit="cover"
+                  alt="category image"
+                />
+                <Flex direction="column" flex={1} align="flex-start" ml={3}>
+                  <Text fontSize={16} fontWeight="bold">
+                    {category.strCategory}
+                  </Text>
+                  <Box fontSize={12} color="gray.400">
+                    {mealsCount[category.strCategory] ?? 0} Meals
+                  </Box>
+                </Flex>
+              </Button>
+            ))}
         </Stack>
       </ButtonGroup>
     </>

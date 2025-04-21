@@ -4,7 +4,7 @@ import MealCard from "./MealCard";
 import SkeletonCard from "./SkeletonCard";
 
 type Props = {
-  meals: Meal[];
+  meals: Meal[] | undefined;
   loading: boolean;
   openRecipe: (meal: Meal) => void;
 };
@@ -20,6 +20,7 @@ function MainContent({ meals, loading, openRecipe }: Props) {
         {loading &&
           skeletons.map((skeleton) => <SkeletonCard key={skeleton} />)}
         {!loading &&
+          meals &&
           meals.length > 0 &&
           meals.map((meal) => (
             <MealCard
@@ -29,7 +30,7 @@ function MainContent({ meals, loading, openRecipe }: Props) {
             />
           ))}
       </SimpleGrid>
-      {!loading && meals.length === 0 && (
+      {!loading && meals && meals.length === 0 && (
         <Center mt={100}>
           <Heading lineHeight="tall">
             <Highlight

@@ -56,7 +56,7 @@ function App() {
 
   // Fetching meals based on selected category
   useEffect(() => {
-    if (!categories.length) return; // Check if data is empty
+    if (!categories || !categories.length) return; // Check if data is empty
 
     const controller = new AbortController();
     const signal = controller.signal;
