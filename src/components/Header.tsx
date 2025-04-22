@@ -14,12 +14,12 @@ import { useForm } from "react-hook-form";
 import { Category, searchForm } from "@/types";
 
 type Props = {
-  setSelectedCategory: (category: Category) => void;
+  setCategoryAndLetter: (category: Category, letter: null) => void;
   onSubmit: (data: searchForm) => void;
   onChange: (area: string) => void;
 };
 
-function Header({ setSelectedCategory, onSubmit, onChange }: Props) {
+function Header({ setCategoryAndLetter, onSubmit, onChange }: Props) {
   const { register, handleSubmit } = useForm<searchForm>();
 
   return (
@@ -29,7 +29,7 @@ function Header({ setSelectedCategory, onSubmit, onChange }: Props) {
           src={logo}
           alt="logo image"
           _hover={{ cursor: "pointer" }}
-          onClick={() => setSelectedCategory({ strCategory: "Beef" })}
+          onClick={() => setCategoryAndLetter({ strCategory: "Beef" }, null)}
         />
       </GridItem>
       <GridItem colSpan={4}>

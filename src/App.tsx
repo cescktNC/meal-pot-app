@@ -22,18 +22,22 @@ const apiUrlAllCategories = `${baseUrl}${
 }`;
 const apiUrlMealById = `${baseUrl}${import.meta.env.VITE_API_URL_MEAL_BY_ID}`;
 
-const makeMealUrl = (category: Category) => {
-  return `${baseUrl}${
-    import.meta.env.VITE_API_URL_MEALS_FILTERED_BY_CATEGORY
-  }?c=${category.strCategory}`;
+const makeMealUrl = (category: Category | null, letter: string | null) => {
+  if (letter) {
+    return `${baseUrl}${import.meta.env.VITE_API_URL_MEAL_BY_LETTER}${letter}`;
+  }
+
+  return `${baseUrl}${import.meta.env.VITE_API_URL_MEALS_FILTERED_BY_CATEGORY}${
+    category?.strCategory
+  }`;
 };
 
 function App() {
   const [mealsCount, setMealsCount] = useState<MealCount>({});
-  const [selectedCategory, setSelectedCategory] = useState<Category>({
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>({
     strCategory: "Beef",
   });
-  const [selectedLetter, setSelectedLetter] = useState<string>("");
+  const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const { loading, data: categories } =
@@ -45,7 +49,7 @@ function App() {
     setData: setDataMeal,
     fetchMealsByName,
     fetchMealsByArea,
-  } = useHttpData<Meal>(makeMealUrl(selectedCategory));
+  } = useHttpData<Meal>(makeMealUrl(selectedCategory, selectedLetter));
 
   const {
     loading: loadingMealDetails,
@@ -66,7 +70,7 @@ function App() {
       try {
         await Promise.all(
           categories.map(async (category) => {
-            const url = makeMealUrl(category);
+            const url = makeMealUrl(category, null);
             const { data } = await axios.get<CategoriesResponse>(url, {
               signal,
             });
@@ -105,6 +109,14 @@ function App() {
     });
   };
 
+  const setCategoryAndLetter = (
+    category: Category | null,
+    letter: string | null
+  ) => {
+    setSelectedCategory(category);
+    setSelectedLetter(letter);
+  };
+
   return (
     <>
       <Grid templateColumns="repeat(6, 1fr)">
@@ -120,7 +132,7 @@ function App() {
           p={5}
         >
           <Header
-            setSelectedCategory={setSelectedCategory}
+            setCategoryAndLetter={setCategoryAndLetter}
             onSubmit={(mealName) => {
               mealName.search === ""
                 ? setDataMeal([])
@@ -146,14 +158,14 @@ function App() {
             mealsCount={mealsCount}
             loading={loading}
             selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
+            setCategoryAndLetter={setCategoryAndLetter}
           />
         </GridItem>
         <GridItem colSpan={5} p={5} bgColor="gray.100">
           <LetterButton
             loading={loadingMeal}
             selectedLetter={selectedLetter}
-            setSelectedLetter={setSelectedLetter}
+            setCategoryAndLetter={setCategoryAndLetter}
           />
           <MainContent
             openRecipe={searchMealDetails}

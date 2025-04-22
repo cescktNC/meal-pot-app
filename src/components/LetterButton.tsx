@@ -3,13 +3,17 @@ import Letter from "./Letter";
 
 type Props = {
   loading: boolean;
-  selectedLetter: string;
-  setSelectedLetter: (letter: string) => void;
+  selectedLetter: string | null;
+  setCategoryAndLetter: (category: null, letter: string) => void;
 };
 
 const alphabet = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
 
-function LetterButton({ loading, selectedLetter, setSelectedLetter }: Props) {
+function LetterButton({
+  loading,
+  selectedLetter,
+  setCategoryAndLetter,
+}: Props) {
   return (
     <Flex gap={2} mb={5} wrap="wrap" justifyContent="center">
       {alphabet.map((letter) => (
@@ -18,7 +22,7 @@ function LetterButton({ loading, selectedLetter, setSelectedLetter }: Props) {
           letter={letter}
           isDisabled={loading}
           selected={selectedLetter === letter}
-          onSelect={setSelectedLetter}
+          setCategoryAndLetter={setCategoryAndLetter}
         />
       ))}
     </Flex>

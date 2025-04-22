@@ -4,7 +4,7 @@ type Props = {
   letter: string;
   isDisabled: boolean;
   selected: boolean;
-  onSelect: (letter: string) => void;
+  setCategoryAndLetter: (category: null, letter: string) => void;
 };
 
 const selectedProps = {
@@ -12,10 +12,10 @@ const selectedProps = {
   color: "white",
 };
 
-function Letter({ letter, isDisabled, selected, onSelect }: Props) {
+function Letter({ letter, isDisabled, selected, setCategoryAndLetter }: Props) {
   return (
     <Button
-      onClick={() => onSelect(letter)}
+      onClick={() => setCategoryAndLetter(null, letter)}
       border="2px solid"
       borderColor="orange.solid"
       bg="orange.muted"

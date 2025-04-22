@@ -55,8 +55,8 @@ type Props = {
   categories: Category[] | undefined;
   mealsCount: MealCount;
   loading: boolean;
-  selectedCategory: Category;
-  setSelectedCategory: (category: Category) => void;
+  selectedCategory: Category | null;
+  setCategoryAndLetter: (category: Category, letter: null) => void;
 };
 
 function SideNav({
@@ -64,7 +64,7 @@ function SideNav({
   mealsCount,
   loading,
   selectedCategory,
-  setSelectedCategory,
+  setCategoryAndLetter,
 }: Props) {
   return loading ? (
     <SkeletonText
@@ -84,14 +84,14 @@ function SideNav({
           {categories &&
             categories.map((category) => (
               <Button
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => setCategoryAndLetter(category, null)}
                 key={category.strCategory}
                 justifyContent="flex-start"
                 boxShadow="sm"
                 rounded="sm"
                 h="60px"
                 _hover={{ bg: "gray.100" }}
-                {...(selectedCategory.strCategory === category.strCategory &&
+                {...(selectedCategory?.strCategory === category.strCategory &&
                   selectedProps)}
               >
                 <Image
