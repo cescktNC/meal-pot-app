@@ -1,19 +1,17 @@
 import { Flex } from "@chakra-ui/react";
 import Letter from "./Letter";
+import { useContext } from "react";
+import CategoryAndLetterContext from "./contexts/CategoryAndLetterContext";
 
 type Props = {
   loading: boolean;
-  selectedLetter: string | null;
-  setCategoryAndLetter: (category: null, letter: string) => void;
 };
 
 const alphabet = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
 
-function LetterButton({
-  loading,
-  selectedLetter,
-  setCategoryAndLetter,
-}: Props) {
+function LetterButton({ loading }: Props) {
+  const { selectedLetter } = useContext(CategoryAndLetterContext);
+
   return (
     <Flex gap={2} mb={5} wrap="wrap" justifyContent="center">
       {alphabet.map((letter) => (
@@ -22,7 +20,6 @@ function LetterButton({
           letter={letter}
           isDisabled={loading}
           selected={selectedLetter === letter}
-          setCategoryAndLetter={setCategoryAndLetter}
         />
       ))}
     </Flex>

@@ -11,16 +11,18 @@ import { RiSearchLine } from "react-icons/ri";
 import logo from "@/assets/images/logo.svg";
 import SelectCountry from "./SelectCountry";
 import { useForm } from "react-hook-form";
-import { Category, searchForm } from "@/types";
+import { searchForm } from "@/types";
+import { useContext } from "react";
+import CategoryAndLetterContext from "./contexts/CategoryAndLetterContext";
 
 type Props = {
-  setCategoryAndLetter: (category: Category, letter: null) => void;
   onSubmit: (data: searchForm) => void;
   onChange: (area: string) => void;
 };
 
-function Header({ setCategoryAndLetter, onSubmit, onChange }: Props) {
+function Header({ onSubmit, onChange }: Props) {
   const { register, handleSubmit } = useForm<searchForm>();
+  const { setCategoryAndLetter } = useContext(CategoryAndLetterContext);
 
   return (
     <Grid templateColumns="repeat(6, 1fr)">

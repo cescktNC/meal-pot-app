@@ -26,6 +26,8 @@ import sideIcon from "@/assets/images/side.png";
 import starterIcon from "@/assets/images/starter.png";
 import veganIcon from "@/assets/images/vegan.png";
 import vegetarianIcon from "@/assets/images/vegetarian.png";
+import { useContext } from "react";
+import CategoryAndLetterContext from "./contexts/CategoryAndLetterContext";
 
 // Mapping category names to their respective icons
 // This mapping is used to display the correct icon for each category in the UI
@@ -55,17 +57,13 @@ type Props = {
   categories: Category[] | undefined;
   mealsCount: MealCount;
   loading: boolean;
-  selectedCategory: Category | null;
-  setCategoryAndLetter: (category: Category, letter: null) => void;
 };
 
-function SideNav({
-  categories,
-  mealsCount,
-  loading,
-  selectedCategory,
-  setCategoryAndLetter,
-}: Props) {
+function SideNav({ categories, mealsCount, loading }: Props) {
+  const { selectedCategory, setCategoryAndLetter } = useContext(
+    CategoryAndLetterContext
+  );
+
   return loading ? (
     <SkeletonText
       noOfLines={8}

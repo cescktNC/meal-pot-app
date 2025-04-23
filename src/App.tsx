@@ -15,6 +15,7 @@ import useHttpData from "./hooks/useHttpData";
 import LetterButton from "./components/LetterButton";
 import RecipeModal from "./components/RecipeModal";
 import useFetch from "./hooks/useFetch";
+import CategoryAndLetterContext from "./components/contexts/CategoryAndLetterContext";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const apiUrlAllCategories = `${baseUrl}${
@@ -118,7 +119,9 @@ function App() {
   };
 
   return (
-    <>
+    <CategoryAndLetterContext.Provider
+      value={{ selectedCategory, selectedLetter, setCategoryAndLetter }}
+    >
       <Grid templateColumns="repeat(6, 1fr)">
         <GridItem
           pos="sticky"
@@ -132,7 +135,6 @@ function App() {
           p={5}
         >
           <Header
-            setCategoryAndLetter={setCategoryAndLetter}
             onSubmit={(mealName) => {
               mealName.search === ""
                 ? setDataMeal([])
@@ -157,16 +159,10 @@ function App() {
             categories={categories}
             mealsCount={mealsCount}
             loading={loading}
-            selectedCategory={selectedCategory}
-            setCategoryAndLetter={setCategoryAndLetter}
           />
         </GridItem>
         <GridItem colSpan={5} p={5} bgColor="gray.100">
-          <LetterButton
-            loading={loadingMeal}
-            selectedLetter={selectedLetter}
-            setCategoryAndLetter={setCategoryAndLetter}
-          />
+          <LetterButton loading={loadingMeal} />
           <MainContent
             openRecipe={searchMealDetails}
             meals={dataMeal}
@@ -181,7 +177,7 @@ function App() {
         setIsOpen={setIsOpen}
         loading={loadingMealDetails}
       />
-    </>
+    </CategoryAndLetterContext.Provider>
   );
 }
 

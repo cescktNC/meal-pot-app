@@ -1,10 +1,11 @@
 import { Button } from "@chakra-ui/react";
+import { useContext } from "react";
+import CategoryAndLetterContext from "./contexts/CategoryAndLetterContext";
 
 type Props = {
   letter: string;
   isDisabled: boolean;
   selected: boolean;
-  setCategoryAndLetter: (category: null, letter: string) => void;
 };
 
 const selectedProps = {
@@ -12,7 +13,9 @@ const selectedProps = {
   color: "white",
 };
 
-function Letter({ letter, isDisabled, selected, setCategoryAndLetter }: Props) {
+function Letter({ letter, isDisabled, selected }: Props) {
+  const { setCategoryAndLetter } = useContext(CategoryAndLetterContext);
+
   return (
     <Button
       onClick={() => setCategoryAndLetter(null, letter)}
