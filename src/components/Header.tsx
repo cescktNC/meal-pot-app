@@ -11,17 +11,18 @@ import { RiSearchLine } from "react-icons/ri";
 import logo from "@/assets/images/logo.svg";
 import SelectCountry from "./SelectCountry";
 import { useForm } from "react-hook-form";
-import { searchForm } from "@/types";
+import { SearchForm } from "@/types";
 import { useContext } from "react";
 import CategoryAndLetterContext from "./contexts/CategoryAndLetterContext";
 
 type Props = {
-  onSubmit: (data: searchForm) => void;
+  form: ReturnType<typeof useForm<SearchForm>>;
+  onSubmit: (data: SearchForm) => void;
   onChange: (area: string) => void;
 };
 
-function Header({ onSubmit, onChange }: Props) {
-  const { register, handleSubmit } = useForm<searchForm>();
+function Header({ form, onSubmit, onChange }: Props) {
+  const { register, handleSubmit } = form;
   const { setCategoryAndLetter } = useContext(CategoryAndLetterContext);
 
   return (
@@ -31,7 +32,9 @@ function Header({ onSubmit, onChange }: Props) {
           src={logo}
           alt="logo image"
           _hover={{ cursor: "pointer" }}
-          onClick={() => setCategoryAndLetter({ strCategory: "Beef" }, null)}
+          onClick={() =>
+            setCategoryAndLetter({ category: { strCategory: "Beef" } })
+          }
         />
       </GridItem>
       <GridItem colSpan={4}>

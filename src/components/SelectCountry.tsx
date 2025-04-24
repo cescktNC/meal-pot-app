@@ -4,6 +4,8 @@ import {
   Select,
   useSelectContext,
 } from "@chakra-ui/react";
+import { useContext } from "react";
+import CategoryAndLetterContext from "./contexts/CategoryAndLetterContext";
 
 const areaToFlagCode: Record<string, string> = {
   "Select the country": "xx",
@@ -78,10 +80,11 @@ const SelectValue = () => {
 type Props = { onChange: (area: string) => void };
 
 function SelectCountry({ onChange }: Props) {
+  const { selectedArea } = useContext(CategoryAndLetterContext);
   return (
     <Select.Root
       collection={countries}
-      defaultValue={["xx"]}
+      value={[areaToFlagCode[selectedArea]]}
       positioning={{ sameWidth: true }}
       onValueChange={(value) => onChange(value.items[0].name)}
     >

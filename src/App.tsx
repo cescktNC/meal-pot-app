@@ -7,15 +7,18 @@ import axios from "axios";
 import {
   CategoriesResponse,
   Category,
+  CategoryAndLetterProps,
   Meal,
   MealCount,
   MealDetails,
+  SearchForm,
 } from "./types";
 import useHttpData from "./hooks/useHttpData";
 import LetterButton from "./components/LetterButton";
 import RecipeModal from "./components/RecipeModal";
 import useFetch from "./hooks/useFetch";
 import CategoryAndLetterContext from "./components/contexts/CategoryAndLetterContext";
+import { useForm } from "react-hook-form";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const apiUrlAllCategories = `${baseUrl}${
@@ -23,9 +26,24 @@ const apiUrlAllCategories = `${baseUrl}${
 }`;
 const apiUrlMealById = `${baseUrl}${import.meta.env.VITE_API_URL_MEAL_BY_ID}`;
 
-const makeMealUrl = (category: Category | null, letter: string | null) => {
+const makeMealUrl = (
+  category: Category | null,
+  letter: string | null,
+  mealName: SearchForm | null,
+  area: string
+) => {
   if (letter) {
     return `${baseUrl}${import.meta.env.VITE_API_URL_MEAL_BY_LETTER}${letter}`;
+  }
+
+  if (mealName?.search) {
+    return `${baseUrl}${import.meta.env.VITE_API_URL_MEAL_BY_NAME}${
+      mealName.search
+    }`;
+  }
+
+  if (area !== "Select the country") {
+    return `${baseUrl}${import.meta.env.VITE_API_URL_MEAL_BY_AREA}${area}`;
   }
 
   return `${baseUrl}${import.meta.env.VITE_API_URL_MEALS_FILTERED_BY_CATEGORY}${
@@ -39,6 +57,10 @@ function App() {
     strCategory: "Beef",
   });
   const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
+  const [selectedArea, setSelectedArea] =
+    useState<string>("Select the country");
+  const form = useForm<SearchForm>();
+  const [searchForm, setSearchForm] = useState<SearchForm | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const { loading, data: categories } =
@@ -48,9 +70,9 @@ function App() {
     loading: loadingMeal,
     data: dataMeal,
     setData: setDataMeal,
-    fetchMealsByName,
-    fetchMealsByArea,
-  } = useHttpData<Meal>(makeMealUrl(selectedCategory, selectedLetter));
+  } = useHttpData<Meal>(
+    makeMealUrl(selectedCategory, selectedLetter, searchForm, selectedArea)
+  );
 
   const {
     loading: loadingMealDetails,
@@ -71,7 +93,7 @@ function App() {
       try {
         await Promise.all(
           categories.map(async (category) => {
-            const url = makeMealUrl(category, null);
+            const url = makeMealUrl(category, null, searchForm, selectedArea);
             const { data } = await axios.get<CategoriesResponse>(url, {
               signal,
             });
@@ -110,17 +132,43 @@ function App() {
     });
   };
 
-  const setCategoryAndLetter = (
-    category: Category | null,
-    letter: string | null
-  ) => {
+  // This function sets the selected category, letter, meal name, and area
+  // It also sets the search form value in the form state
+  // The setCategoryAndLetter function is called when the user selects a category,
+  // letter, meal name, or area
+  // It updates the state and form values accordingly
+  const setCategoryAndLetter = ({
+    category = null,
+    letter = null,
+    mealName = null,
+    area = "Select the country",
+  }: CategoryAndLetterProps) => {
     setSelectedCategory(category);
     setSelectedLetter(letter);
+    setSearchForm(mealName);
+    setSelectedArea(area);
+
+    form.setValue("search", mealName?.search || "");
   };
+
+  const handleNameSubmit = (mealName: SearchForm) =>
+    mealName.search === ""
+      ? setDataMeal([])
+      : setCategoryAndLetter({ mealName });
+
+  const handleAreaChange = (area: string) =>
+    area === "Select the country"
+      ? setDataMeal([])
+      : setCategoryAndLetter({ area });
 
   return (
     <CategoryAndLetterContext.Provider
-      value={{ selectedCategory, selectedLetter, setCategoryAndLetter }}
+      value={{
+        selectedCategory,
+        selectedLetter,
+        selectedArea,
+        setCategoryAndLetter,
+      }}
     >
       <Grid templateColumns="repeat(6, 1fr)">
         <GridItem
@@ -135,16 +183,9 @@ function App() {
           p={5}
         >
           <Header
-            onSubmit={(mealName) => {
-              mealName.search === ""
-                ? setDataMeal([])
-                : fetchMealsByName(mealName);
-            }}
-            onChange={(area) =>
-              area === "Select the country"
-                ? setDataMeal([])
-                : fetchMealsByArea(area)
-            }
+            form={form}
+            onSubmit={handleNameSubmit}
+            onChange={handleAreaChange}
           />
         </GridItem>
         <GridItem

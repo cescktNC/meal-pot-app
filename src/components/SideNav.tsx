@@ -82,7 +82,7 @@ function SideNav({ categories, mealsCount, loading }: Props) {
           {categories &&
             categories.map((category) => (
               <Button
-                onClick={() => setCategoryAndLetter(category, null)}
+                onClick={() => setCategoryAndLetter({ category })}
                 key={category.strCategory}
                 justifyContent="flex-start"
                 boxShadow="sm"

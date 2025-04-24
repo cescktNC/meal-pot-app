@@ -1,12 +1,13 @@
+// ─── Category ─────────────────────────────
 export type Category = {
   strCategory: string;
 };
 
-// This is the type for the meal object returned from the API
 export type CategoriesResponse = {
   meals: Meal[];
 };
 
+// ─── Meals ────────────────────────────────
 export type Meal = {
   strMeal: string;
   strMealThumb: string;
@@ -17,10 +18,19 @@ export type MealCount = {
   [key: string]: number;
 };
 
-export type searchForm = {
+export type MealDetails = {
+  [key: string]: string;
+};
+
+// ─── Forms ────────────────────────────────
+export type SearchForm = {
   search: string;
 };
 
-export type MealDetails = {
-  [key: string]: string;
+// ─── Context Props ────────────────────────
+export type CategoryAndLetterProps = {
+  category?: Category | null;
+  letter?: string | null;
+  mealName?: SearchForm | null;
+  area?: string;
 };

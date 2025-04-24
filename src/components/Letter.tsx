@@ -18,7 +18,7 @@ function Letter({ letter, isDisabled, selected }: Props) {
 
   return (
     <Button
-      onClick={() => setCategoryAndLetter(null, letter)}
+      onClick={() => setCategoryAndLetter({ letter })}
       border="2px solid"
       borderColor="orange.solid"
       bg="orange.muted"
