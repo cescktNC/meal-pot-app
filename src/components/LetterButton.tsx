@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import Letter from "./Letter";
 import { useContext } from "react";
-import CategoryAndLetterContext from "./contexts/CategoryAndLetterContext";
+import CategoryAndLetterContext from "../contexts/CategoryAndLetterContext";
 
 type Props = {
   loading: boolean;

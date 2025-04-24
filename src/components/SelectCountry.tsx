@@ -5,7 +5,7 @@ import {
   useSelectContext,
 } from "@chakra-ui/react";
 import { useContext } from "react";
-import CategoryAndLetterContext from "./contexts/CategoryAndLetterContext";
+import CategoryAndLetterContext from "../contexts/CategoryAndLetterContext";
 
 const areaToFlagCode: Record<string, string> = {
   "Select the country": "xx",

@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import { useContext } from "react";
-import CategoryAndLetterContext from "./contexts/CategoryAndLetterContext";
+import CategoryAndLetterContext from "../contexts/CategoryAndLetterContext";
 
 type Props = {
   letter: string;

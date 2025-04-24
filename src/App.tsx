@@ -17,7 +17,7 @@ import useHttpData from "./hooks/useHttpData";
 import LetterButton from "./components/LetterButton";
 import RecipeModal from "./components/RecipeModal";
 import useFetch from "./hooks/useFetch";
-import CategoryAndLetterContext from "./components/contexts/CategoryAndLetterContext";
+import CategoryAndLetterContext from "./contexts/CategoryAndLetterContext";
 import { useForm } from "react-hook-form";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;

@@ -27,7 +27,7 @@ import starterIcon from "@/assets/images/starter.png";
 import veganIcon from "@/assets/images/vegan.png";
 import vegetarianIcon from "@/assets/images/vegetarian.png";
 import { useContext } from "react";
-import CategoryAndLetterContext from "./contexts/CategoryAndLetterContext";
+import CategoryAndLetterContext from "../contexts/CategoryAndLetterContext";
 
 // Mapping category names to their respective icons
 // This mapping is used to display the correct icon for each category in the UI

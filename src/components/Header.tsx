@@ -13,7 +13,7 @@ import SelectCountry from "./SelectCountry";
 import { useForm } from "react-hook-form";
 import { SearchForm } from "@/types";
 import { useContext } from "react";
-import CategoryAndLetterContext from "./contexts/CategoryAndLetterContext";
+import CategoryAndLetterContext from "../contexts/CategoryAndLetterContext";
 
 type Props = {
   form: ReturnType<typeof useForm<SearchForm>>;
