@@ -1,54 +1,27 @@
-# React + TypeScript + Vite
+# 🍲 MealPot – Aplicación de Recetas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MealPot es una aplicación web para buscar y explorar recetas de cocina. Está construida con Vite, React, TypeScript y Chakra UI, enfocándose en una interfaz clara y bien estructurada. El diseño de la app fue previamente prototipado en Figma.
 
-Currently, two official plugins are available:
+## ✨ Características principales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔍 Búsqueda de recetas por nombre y país.
+- 📖 Vista detallada de cada receta con ingredientes y pasos.
+- 📂 Navegación por categorías desde un panel lateral (SideNav).
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologías utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- ⚡ Vite – Para un entorno de desarrollo ágil y moderno.
+- ⚛️ React + TypeScript – Componentes modulares y tipados.
+- 🎨 Chakra UI – Sistema de diseño accesible y personalizable.
+- 🧠 Context API y Custom Hooks – Para la gestión de estado y reutilización de lógica.
+- 🧩 Figma – Todo el diseño fue realizado previamente en Figma para asegurar coherencia visual.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🖼️ Capturas de pantalla
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Pantalla principal
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+![Pantalla principal](https://github.com/cescktNC/meal-pot-app/src/assets/screenshots/main_screen.JPG)
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 🧪 Próximas mejoras
+
+- 📱 Adaptar el diseño para dispositivos móviles (responsive design).
