@@ -20,7 +20,16 @@ MealPot es una aplicación web para buscar y explorar recetas de cocina. Está c
 
 ### Pantalla principal
 
-![Pantalla principal](https://github.com/cescktNC/meal-pot-app/src/assets/screenshots/main_screen.JPG)
+![Pantalla principal](https://github.com/cescktNC/meal-pot-app/blob/main/src/assets/screenshots/main_screen.JPG)
+
+### Búsqueda de recetas
+
+![Pantalla principal](https://github.com/cescktNC/meal-pot-app/blob/main/src/assets/screenshots/search_recipe_by_name.JPG)
+![Pantalla principal](https://github.com/cescktNC/meal-pot-app/blob/main/src/assets/screenshots/search_recipes_by_area.JPG)
+
+### Detalle de una receta
+
+![Pantalla principal](https://github.com/cescktNC/meal-pot-app/blob/main/src/assets/screenshots/dialog_recipeJPG.JPG)
 
 ## 🧪 Próximas mejoras
 
