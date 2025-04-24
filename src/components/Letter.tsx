@@ -14,11 +14,11 @@ const selectedProps = {
 };
 
 function Letter({ letter, isDisabled, selected }: Props) {
-  const { setCategoryAndLetter } = useContext(CategoryAndLetterContext);
+  const { updateSearchFilters } = useContext(CategoryAndLetterContext);
 
   return (
     <Button
-      onClick={() => setCategoryAndLetter({ letter })}
+      onClick={() => updateSearchFilters({ letter })}
       border="2px solid"
       borderColor="orange.solid"
       bg="orange.muted"

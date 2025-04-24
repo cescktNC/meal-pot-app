@@ -28,7 +28,7 @@ export type SearchForm = {
 };
 
 // ─── Context Props ────────────────────────
-export type CategoryAndLetterProps = {
+export type SearchFilterProps = {
   category?: Category | null;
   letter?: string | null;
   mealName?: SearchForm | null;

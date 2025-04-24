@@ -23,7 +23,7 @@ type Props = {
 
 function Header({ form, onSubmit, onChange }: Props) {
   const { register, handleSubmit } = form;
-  const { setCategoryAndLetter } = useContext(CategoryAndLetterContext);
+  const { updateSearchFilters } = useContext(CategoryAndLetterContext);
 
   return (
     <Grid templateColumns="repeat(6, 1fr)">
@@ -33,7 +33,7 @@ function Header({ form, onSubmit, onChange }: Props) {
           alt="logo image"
           _hover={{ cursor: "pointer" }}
           onClick={() =>
-            setCategoryAndLetter({ category: { strCategory: "Beef" } })
+            updateSearchFilters({ category: { strCategory: "Beef" } })
           }
         />
       </GridItem>

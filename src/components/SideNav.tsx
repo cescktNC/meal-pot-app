@@ -60,7 +60,7 @@ type Props = {
 };
 
 function SideNav({ categories, mealsCount, loading }: Props) {
-  const { selectedCategory, setCategoryAndLetter } = useContext(
+  const { selectedCategory, updateSearchFilters } = useContext(
     CategoryAndLetterContext
   );
 
@@ -82,7 +82,7 @@ function SideNav({ categories, mealsCount, loading }: Props) {
           {categories &&
             categories.map((category) => (
               <Button
-                onClick={() => setCategoryAndLetter({ category })}
+                onClick={() => updateSearchFilters({ category })}
                 key={category.strCategory}
                 justifyContent="flex-start"
                 boxShadow="sm"

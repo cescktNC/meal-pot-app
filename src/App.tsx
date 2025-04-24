@@ -7,7 +7,7 @@ import axios from "axios";
 import {
   CategoriesResponse,
   Category,
-  CategoryAndLetterProps,
+  SearchFilterProps,
   Meal,
   MealCount,
   MealDetails,
@@ -134,15 +134,15 @@ function App() {
 
   // This function sets the selected category, letter, meal name, and area
   // It also sets the search form value in the form state
-  // The setCategoryAndLetter function is called when the user selects a category,
+  // The updateSearchFilters function is called when the user selects a category,
   // letter, meal name, or area
   // It updates the state and form values accordingly
-  const setCategoryAndLetter = ({
+  const updateSearchFilters = ({
     category = null,
     letter = null,
     mealName = null,
     area = "Select the country",
-  }: CategoryAndLetterProps) => {
+  }: SearchFilterProps) => {
     setSelectedCategory(category);
     setSelectedLetter(letter);
     setSearchForm(mealName);
@@ -154,12 +154,12 @@ function App() {
   const handleNameSubmit = (mealName: SearchForm) =>
     mealName.search === ""
       ? setDataMeal([])
-      : setCategoryAndLetter({ mealName });
+      : updateSearchFilters({ mealName });
 
   const handleAreaChange = (area: string) =>
     area === "Select the country"
       ? setDataMeal([])
-      : setCategoryAndLetter({ area });
+      : updateSearchFilters({ area });
 
   return (
     <CategoryAndLetterContext.Provider
@@ -167,7 +167,7 @@ function App() {
         selectedCategory,
         selectedLetter,
         selectedArea,
-        setCategoryAndLetter,
+        updateSearchFilters,
       }}
     >
       <Grid templateColumns="repeat(6, 1fr)">
